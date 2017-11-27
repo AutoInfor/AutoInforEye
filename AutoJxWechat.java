@@ -18,6 +18,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static android.R.attr.id;
 import static android.support.test.uiautomator.By.text;
 import static java.lang.Thread.sleep;
 //TODO
@@ -69,19 +70,17 @@ public class AutoJxWechat {
                 for (nIndex = 0; nIndex < 7; nIndex++) {
 
                     UiObject contact = listView3.getChildByInstance(listView4, nIndex);
+
                     contact.waitForExists(6000);
+                    String mz =  contact.getChild(new UiSelector().resourceId("com.tencent.mm:id/ir")).getText();
+                    if (mz.contains("84") || mz.contains("自考") || mz.contains("83") || mz.contains("82") || mz.contains("离") || mz.contains("鹊")) {
+                        continue;
+                    }
                     contact.click();
                     UiObject nicheng = mUiDevice.findObject(new UiSelector().textContains("昵称"));
-                    UiObject mingzi = mUiDevice.findObject(new UiSelector().resourceId("com.tencent.mm:id/nm"));
-                    String mz = mingzi.getText();
+                    //UiObject mingzi = mUiDevice.findObject(new UiSelector().resourceId("com.tencent.mm:id/nm"));
+
                     Log.d(TAG, mz);
-
-//                    if (mz.contains("专") || mz.contains("84") || mz.contains("自考") || mz.contains("83") || mz.contains("82") || mz.contains("离") || mz.contains("民")) {
-//                        continue;
-//                    }
-
-                    UiObject contactsend = mUiDevice.findObject(new UiSelector().text("发消息"));
-
 
                     String nc = "你好";
 
@@ -90,11 +89,14 @@ public class AutoJxWechat {
                     if (nicheng.exists()) {
                         nc = nicheng.getText();
                         nc = nc.substring(3, (nc.length() < 10 ? nc.length() : 10));
-                    } else if (mingzi.exists()) {
-                        nc = mingzi.getText();
+                    } else  {
+                        nc = mz;
                         nc = nc.substring(0, (nc.length() < 4 ? nc.length() : 4));
                     }
                     Log.d(TAG, nc);
+                    sleep(2000);
+                    // UiObject contactsend = mUiDevice.findObject(new UiSelector().text("发消息"));
+                    UiObject contactsend = mUiDevice.findObject(new UiSelector().resourceId("com.tencent.mm:id/akw"));
                     if (contactsend.waitForExists(5000)) {
                         contactsend.click();
                     }
@@ -108,73 +110,68 @@ public class AutoJxWechat {
                     if (sendtext.exists()) {
                         Log.d(TAG, "sendtext.exists()");
 
-                        if (!mUiDevice.findObject(new UiSelector().textContains(neirong)).exists() && !mUiDevice.findObject(new UiSelector().textContains("开启了朋友")).exists()) {
+                        if (false&& !mUiDevice.findObject(new UiSelector().textContains(neirong)).exists() && !mUiDevice.findObject(new UiSelector().textContains("开启了朋友")).exists()) {
                             sendtext.setText(nc+neirong);
                             UiObject sendtext1 = mUiDevice.findObject(new UiSelector().text("发送"));
                             sendtext1.waitForExists(5000);
                             sendtext1.click();
 
-//                            sendtext.setText(neirong);
-//
-//                            sendtext.clearTextField();
-//                            sendtext1.click();
                         }
 
 
-//                        boolean verification1 = mUiDevice.findObject(new UiSelector().textContains("发送朋友验证")).exists();
-//                        boolean verification2 = mUiDevice.findObject(new UiSelector().textContains("拒收")).exists();
+                        boolean verification1 = mUiDevice.findObject(new UiSelector().textContains("发送朋友验证")).exists();
+                        boolean verification2 = mUiDevice.findObject(new UiSelector().textContains("拒收")).exists();
+
+                        if (verification2) {
+                            UiObject back = mUiDevice.findObject(new UiSelector().descriptionContains("聊天信息"));
+                            back.clickAndWaitForNewWindow();
+
+                            UiObject contac = listView.getChildByInstance(new UiSelector().clickable(true).className("android.widget.RelativeLayout"), 0);
+                            contac.clickAndWaitForNewWindow();
+
+
+                            UiObject cont1 = mUiDevice.findObject(new UiSelector().descriptionContains("更多"));
+                            cont1.clickAndWaitForNewWindow();
+
+
+                            UiObject cont2 = mUiDevice.findObject(new UiSelector().text("删除"));
+                            cont2.clickAndWaitForNewWindow();
+
+                            UiObject cont3 = mUiDevice.findObject(new UiSelector().text("删除"));
+                            cont3.clickAndWaitForNewWindow();
+
+                            UiObject cont4 = mUiDevice.findObject(new UiSelector().text("通讯录"));
+                            cont4.click();
+                        }
+                        if (verification1) {
+
+                            UiObject yanzhen = mUiDevice.findObject(new UiSelector().textContains("发送朋友验证"));
+                            Rect viewRect = yanzhen.getBounds();//获取Rect对象，Rect里面就有我们需要的坐标
+                            int x = viewRect.right;    //这是的X坐标
+                            int y = viewRect.bottom;    //这是的Y坐标
 //
-//                        if (false&&verification2) {
-//                            UiObject back = mUiDevice.findObject(new UiSelector().descriptionContains("聊天信息"));
-//                            back.clickAndWaitForNewWindow();
-//
-//                            UiObject contac = listView.getChildByInstance(new UiSelector().clickable(true).className("android.widget.RelativeLayout"), 0);
-//                            contac.clickAndWaitForNewWindow();
-//
-//
-//                            UiObject cont1 = mUiDevice.findObject(new UiSelector().descriptionContains("更多"));
-//                            cont1.clickAndWaitForNewWindow();
-//
-//
-//                            UiObject cont2 = mUiDevice.findObject(new UiSelector().text("删除"));
-//                            cont2.clickAndWaitForNewWindow();
-//
-//                            UiObject cont3 = mUiDevice.findObject(new UiSelector().text("删除"));
-//                            cont3.clickAndWaitForNewWindow();
-//
-//                            UiObject cont4 = mUiDevice.findObject(new UiSelector().text("通讯录"));
-//                            cont4.click();
-//                        }
-//////
-//                        if (false&&verification1) {
-//
-//                            UiObject yanzhen = mUiDevice.findObject(new UiSelector().textContains("发送朋友验证"));
-//                            Rect viewRect = yanzhen.getBounds();//获取Rect对象，Rect里面就有我们需要的坐标
-//                            int x = viewRect.right;    //这是的X坐标
-//                            int y = viewRect.bottom;    //这是的Y坐标
-////
-//                            UiObject shenqing = mUiDevice.findObject(new UiSelector().textContains("验证申请"));
-//                            while (!shenqing.exists()) {
-//                                mUiDevice.click(x - 100, y - 50);   //稍微缩进点，点击坐标
-//                                x = x - 100;
-//                                sleep(1000);
-//                                Log.d(TAG, Integer.toString(x));
-//                                if (x < 100) {
-//                                    break;
-//                                }
-//                            }
-//                            sleep(1000);
-//                            UiObject sendtext3 = mUiDevice.findObject(new UiSelector().className("android.widget.EditText"));
-//                            UiObject queding = mUiDevice.findObject(new UiSelector().text("确定"));
-//                            if (queding.exists()) {
-//                                sendtext3.setText(nc + "，有兴趣再聊聊，无兴趣可忽略");
-//                                Log.d(TAG, "sendtext3.setText(nc + \"，还是单身吗？\");");
-//                                queding.clickAndWaitForNewWindow();
-//                            }
-//
-//
-//                        }
-                        //else {
+                            UiObject shenqing = mUiDevice.findObject(new UiSelector().textContains("验证申请"));
+                            while (!shenqing.exists()) {
+                                mUiDevice.click(x - 100, y - 50);   //稍微缩进点，点击坐标
+                                x = x - 100;
+                                sleep(1000);
+                                Log.d(TAG, Integer.toString(x));
+                                if (x < 100) {
+                                    break;
+                                }
+                            }
+                            sleep(1000);
+                            UiObject sendtext3 = mUiDevice.findObject(new UiSelector().className("android.widget.EditText"));
+                            UiObject queding = mUiDevice.findObject(new UiSelector().text("确定"));
+                            if (queding.exists()) {
+                                sendtext3.setText(nc + "，佳缘好友，无兴趣请忽略");
+                                Log.d(TAG, "sendtext3.setText(nc + \"，还是单身吗？\");");
+                                queding.clickAndWaitForNewWindow();
+                            }
+
+
+                        }
+
 
                         UiObject back1 = mUiDevice.findObject(new UiSelector().descriptionContains("返回"));
                         back1.click();
@@ -182,15 +179,6 @@ public class AutoJxWechat {
                         UiObject cont = mUiDevice.findObject(new UiSelector().text("通讯录"));
                         cont.click();
                         Log.d(TAG, "返回通讯录.click()");
-                        //   }
-
-//                    } else {
-//
-//                        UiObject back2 = mUiDevice.findObject(new UiSelector().descriptionContains("返回"));
-//                        back2.waitForExists(5000);
-//                        back2.click();
-//                        Log.d(TAG, "back2.click()");
-//                    }
 
 
                     }
