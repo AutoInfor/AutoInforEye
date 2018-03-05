@@ -12,12 +12,12 @@ public class AutoJxWechat {
     static final int LAUNCH_TIMEOUT = 5000;
     private UiDevice mUiDevice;
     private UiObject2 MMapp;
-    static String neirong = "，元宵结束年就过完了。";
+    static String neirong = "，元宵结束年就接近尾声了。祝你'晚年'幸福，哈哈";
     static String TAG = "AutoJxweichat";
 
     @Before
     public void startMMApp() throws IOException {
-            
+
         mUiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 //        mUiDevice.pressHome();
 //        MMapp = mUiDevice.findObject(text("微信"));
@@ -31,7 +31,7 @@ public class AutoJxWechat {
         int width = mUiDevice.getDisplayWidth();
         int height = mUiDevice.getDisplayHeight();
         UiScrollable listView = new UiScrollable(new UiSelector().className("android.widget.ListView"));
-       // UiScrollable listView = new UiScrollable(new UiSelector().scrollable(true));
+        // UiScrollable listView = new UiScrollable(new UiSelector().scrollable(true));
 //        listView.flingToBeginning(50);
 //        listView.setMaxSearchSwipes(200);
 //
@@ -43,20 +43,20 @@ public class AutoJxWechat {
         while (true) {
 
             try {
-                UiScrollable listView3 = new UiScrollable(new UiSelector().scrollable(true).className("android.widget.ListView").resourceId("com.tencent.mm:id/ih"));
+                UiScrollable listView3 = new UiScrollable(new UiSelector().scrollable(true).className("android.widget.ListView").resourceId("com.tencent.mm:id/iq"));
 
                 UiSelector listView4 = new UiSelector().clickable(true).className("android.widget.LinearLayout");
 
-                for (nIndex = 0; nIndex < 7; nIndex++) {
+                for (nIndex = 0; nIndex < 8; nIndex++) {
                     UiObject contact = listView3.getChildByInstance(listView4, nIndex);
                     contact.waitForExists(6000);
                     Log.d(TAG, "新的一个");
                     contact.click();
-                    UiObject nicheng = mUiDevice.findObject(new UiSelector().resourceId("com.tencent.mm:id/ans"));
+                    UiObject nicheng = mUiDevice.findObject(new UiSelector().resourceId("com.tencent.mm:id/anq"));
                     nicheng.waitForExists(2000);
-                    UiObject mingzi = mUiDevice.findObject(new UiSelector().resourceId("com.tencent.mm:id/p8"));
+                    UiObject mingzi = mUiDevice.findObject(new UiSelector().resourceId("com.tencent.mm:id/pl"));
                     mingzi.waitForExists(2000);
-                    UiObject weixinhao = mUiDevice.findObject(new UiSelector().resourceId("com.tencent.mm:id/ani"));
+                    UiObject weixinhao = mUiDevice.findObject(new UiSelector().resourceId("com.tencent.mm:id/ang"));
                     weixinhao.waitForExists(2000);
 
                     String mz = mingzi.getText();
@@ -68,7 +68,7 @@ public class AutoJxWechat {
                         continue;
                     }
 
-                    UiObject contactsend = mUiDevice.findObject(new UiSelector().resourceId("com.tencent.mm:id/anc"));
+                    UiObject contactsend = mUiDevice.findObject(new UiSelector().resourceId("com.tencent.mm:id/ana"));
 
 
                     String nc = "你好";
@@ -94,78 +94,78 @@ public class AutoJxWechat {
 
 
 
-                        if (!mUiDevice.findObject(new UiSelector().textContains(neirong)).exists() && !mUiDevice.findObject(new UiSelector().textContains("开启了朋友")).exists()) {
-                            sendtext.setText(nc+neirong);
-                            UiObject sendtext1 = mUiDevice.findObject(new UiSelector().text("发送"));
-                            sendtext1.waitForExists(5000);
-                            sendtext1.click();
+                    if (!mUiDevice.findObject(new UiSelector().textContains(neirong)).exists() && !mUiDevice.findObject(new UiSelector().textContains("开启了朋友")).exists()) {
+                        sendtext.setText(nc+neirong);
+                        UiObject sendtext1 = mUiDevice.findObject(new UiSelector().text("发送"));
+                        sendtext1.waitForExists(5000);
+                        sendtext1.click();
 //                          sendtext.clearTextField();
 
-                        }
+                    }
 
 
-                        boolean verification1 = mUiDevice.findObject(new UiSelector().textContains("发送朋友验证")).exists();
-                        boolean verification2 = mUiDevice.findObject(new UiSelector().textContains("拒收")).exists();
+                    boolean verification1 = mUiDevice.findObject(new UiSelector().textContains("发送朋友验证")).exists();
+                    boolean verification2 = mUiDevice.findObject(new UiSelector().textContains("拒收")).exists();
 
-                        if (false&&verification2) {
-                            UiObject back = mUiDevice.findObject(new UiSelector().descriptionContains("聊天信息"));
-                            back.clickAndWaitForNewWindow();
+                    if (false&&verification2) {
+                        UiObject back = mUiDevice.findObject(new UiSelector().descriptionContains("聊天信息"));
+                        back.clickAndWaitForNewWindow();
 
-                            UiObject contac = listView.getChildByInstance(new UiSelector().clickable(true).className("android.widget.RelativeLayout"), 0);
-                            contac.clickAndWaitForNewWindow();
-
-
-                            UiObject cont1 = mUiDevice.findObject(new UiSelector().descriptionContains("更多"));
-                            cont1.clickAndWaitForNewWindow();
+                        UiObject contac = listView.getChildByInstance(new UiSelector().clickable(true).className("android.widget.RelativeLayout"), 0);
+                        contac.clickAndWaitForNewWindow();
 
 
-                            UiObject cont2 = mUiDevice.findObject(new UiSelector().text("删除"));
-                            cont2.clickAndWaitForNewWindow();
+                        UiObject cont1 = mUiDevice.findObject(new UiSelector().descriptionContains("更多"));
+                        cont1.clickAndWaitForNewWindow();
 
-                            UiObject cont3 = mUiDevice.findObject(new UiSelector().text("删除"));
-                            cont3.clickAndWaitForNewWindow();
 
-                            UiObject cont4 = mUiDevice.findObject(new UiSelector().text("通讯录"));
-                            cont4.click();
-                        }
+                        UiObject cont2 = mUiDevice.findObject(new UiSelector().text("删除"));
+                        cont2.clickAndWaitForNewWindow();
+
+                        UiObject cont3 = mUiDevice.findObject(new UiSelector().text("删除"));
+                        cont3.clickAndWaitForNewWindow();
+
+                        UiObject cont4 = mUiDevice.findObject(new UiSelector().text("通讯录"));
+                        cont4.click();
+                    }
 ////
-                        if (verification1) {
+                    if (verification1) {
 
-                            UiObject yanzhen = mUiDevice.findObject(new UiSelector().textContains("发送朋友验证"));
-                            Rect viewRect = yanzhen.getBounds();//获取Rect对象，Rect里面就有我们需要的坐标
-                            int x = viewRect.right;    //这是的X坐标
-                            int y = viewRect.bottom;    //这是的Y坐标
+                        UiObject yanzhen = mUiDevice.findObject(new UiSelector().textContains("发送朋友验证"));
+                        Rect viewRect = yanzhen.getBounds();//获取Rect对象，Rect里面就有我们需要的坐标
+                        int x = viewRect.right;    //这是的X坐标
+                        int y = viewRect.bottom;    //这是的Y坐标
 //
-                            UiObject shenqing = mUiDevice.findObject(new UiSelector().textContains("验证申请"));
-                            while (!shenqing.exists()) {
-                                mUiDevice.click(x - 100, y - 50);   //稍微缩进点，点击坐标
-                                x = x - 100;
-                                sleep(1000);
-                                Log.d(TAG, Integer.toString(x));
-                                if (x < 100) {
-                                    break;
-                                }
-                            }
+                        UiObject shenqing = mUiDevice.findObject(new UiSelector().textContains("验证申请"));
+                        while (!shenqing.exists()) {
+                            mUiDevice.click(x - 100, y - 50);   //稍微缩进点，点击坐标
+                            x = x - 100;
                             sleep(1000);
-                            UiObject sendtext3 = mUiDevice.findObject(new UiSelector().className("android.widget.EditText"));
-                            UiObject queding = mUiDevice.findObject(new UiSelector().text("确定"));
-                            if (queding.exists()) {
-                                sendtext3.setText(nc + "，佳缘与子，如有打扰请勿回复");
-
-                                queding.click();
-                                sleep(1000);
+                            Log.d(TAG, Integer.toString(x));
+                            if (x < 100) {
+                                break;
                             }
                         }
+                        sleep(1000);
+                        UiObject sendtext3 = mUiDevice.findObject(new UiSelector().className("android.widget.EditText"));
+                        UiObject queding = mUiDevice.findObject(new UiSelector().text("确定"));
+                        if (queding.exists()) {
+                            sendtext3.setText(nc + "，佳缘与子，如有打扰请勿回复");
+
+                            queding.click();
+                            sleep(1000);
+                        }
+                    }
 
 
-                        UiObject back1 = mUiDevice.findObject(new UiSelector().descriptionContains("返回"));
-                        back1.waitForExists(5000);
-                        back1.click();
+                    UiObject back1 = mUiDevice.findObject(new UiSelector().descriptionContains("返回"));
+                    back1.waitForExists(5000);
+                    back1.click();
 
-                        UiObject cont = mUiDevice.findObject(new UiSelector().text("通讯录"));
-                        cont.click();
+                    UiObject cont = mUiDevice.findObject(new UiSelector().text("通讯录"));
+                    cont.click();
 
-                        //   }
+                    //   }
 
 //                    } else {
 //
@@ -176,7 +176,7 @@ public class AutoJxWechat {
 //                    }
 
 
-                    }
+                }
 
 
 
@@ -212,7 +212,3 @@ public class AutoJxWechat {
         }
     }
 }
-
-
-
-
